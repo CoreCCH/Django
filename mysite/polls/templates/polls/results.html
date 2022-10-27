@@ -1,0 +1,9 @@
+<hl>{{ question.question_text }}</hl>
+
+<ul>
+{%for choice in question.choice_set.all %}
+    <li>{{ choice.choice_text }} -- 計票 {{ choice.votes }} {{choice.votes| pluralize}}次
+{%endfor%}
+</ul>
+
+<a href="{%url 'polls:detail' question.id %}">重新投票?</a>

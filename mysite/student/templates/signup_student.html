@@ -1,0 +1,13 @@
+{% extends 'temp_basic.html' %}
+
+{% block content %}
+{{msg}}
+<form  action='signup_student_output' method=POST>
+    {% csrf_token %}
+name :<input type=text name=name><br>
+class :<input type=text name=class><br>
+Mark :<input type=text name=mark><br>
+Gender :<input type=text name=gender><br>
+<input type=submit value=Submit>
+</form>
+{% endblock %}

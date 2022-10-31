@@ -1,0 +1,8 @@
+[{
+    "model": "polls.question",
+    "pk": 2,
+    "fields":{
+        "question_text": "Django is a strong web framework",
+        "pub_date": "2020-01-20T15:31:00Z"
+    }
+}]

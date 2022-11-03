@@ -1,0 +1,8 @@
+<hl>登入</hl>
+{{msg}}
+<form  action='signin_output' method=POST>
+{% csrf_token %}
+帳號 :<input type=text name=account><br>
+密碼 :<input type=password name=password><br>
+<input type=submit value=Submit>
+</form>

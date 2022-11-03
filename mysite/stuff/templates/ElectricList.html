@@ -1,0 +1,30 @@
+{{msg}}
+<table>
+    <tr>
+      <th>UUID</th>
+      <th>用電量</th>
+    </tr>
+ 
+    {% for electricity in latest_electricity_list%}
+        <tr>
+            <td> {{ electricity.UUID }}</td> 
+            <td> {{ electricity.KwH }} KwH </td> 
+        </tr>
+    {%endfor%}
+
+    
+</table>
+
+
+<table class="table table-striped" border="1">
+    <tr>
+        <th>UUID</th>
+        <th>用電量</th>
+    </tr>
+    {% for electricity in latest_electricity_list%}
+        <tr>
+            <td> {{ electricity.UUID }}</td> 
+            <td> {{ electricity.KwH }} KwH </td>
+        </tr>
+    {% endfor %}
+</table>

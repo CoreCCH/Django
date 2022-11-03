@@ -1,0 +1,16 @@
+{% extends 'temp_basic1.html' %}
+
+{% block content %}
+{{msg}}
+<form  action='signup_stuff_output' method=POST>
+    {% csrf_token %}
+姓名 :<input type=text name=name><br>
+帳號 :<input type=text name=account><br>
+服務單位 :<input type=text name=serviceUnits><br>
+電子信箱 :<input type=text name=emailAddr><br>
+權限 :<input type=text name=permissions><br>
+啟用狀態 :<input type=text name=activation><br>
+密碼 :<input type=password name=password><br>
+<input type=submit value=Submit>
+</form>
+{% endblock %}

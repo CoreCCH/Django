@@ -7,6 +7,7 @@ def index(request):
 
 def signup_student(request):
     return render(request,'signup_student.html',{'msg':'Student Signup'})
+    
 def signup_student_output(request):
     en=student(name=request.POST.get('name'),cl=request.POST.get('class'),
      mark=request.POST.get('mark'),gender=request.POST.get('gender'))

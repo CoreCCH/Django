@@ -39,10 +39,10 @@ class Account_Control_Area(models.Model):
 class Electricity(models.Model):
     UUID= models.CharField(max_length=8)
     connection= models.BooleanField(default=False)
-    current= models.DecimalField(max_digits=9, decimal_places=2)
-    voltage= models.DecimalField(max_digits=9, decimal_places=2)
-    power= models.DecimalField(max_digits=9, decimal_places=2)
-    KwH= models.DecimalField(max_digits=9, decimal_places=2)
+    current= models.FloatField()
+    voltage= models.FloatField()
+    power= models.FloatField()
+    KwH= models.FloatField()
     mode= models.BooleanField(default=False)
     time= models.DateTimeField(default=datetime.datetime.now())
     class Meta:

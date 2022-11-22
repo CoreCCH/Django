@@ -1,8 +1,9 @@
 from django.shortcuts import render
-from django.http import HttpResponse, Http404, HttpResponseRedirect
+from django.http import HttpResponse, Http404, HttpResponseRedirect, JsonResponse
 from .models import Account, Electricity
 from django.urls import reverse
 import json
+from django.core import serializers
 
 # Create your views here.
 def index(request):
@@ -38,13 +39,46 @@ def main_page(request):
     return render(request,'main_page.html')
 
 def Show_Electricity(request):
+    tempBlogs = []
     latest_electricity_list = Electricity.objects.all()
     
     context = {
-        'latest_electricity_list': latest_electricity_list,
-        'msg':'Dongle用電量'
+        'latest_electricity_list': latest_electricity_list.values('UUID', 'KwH'),
+        'msg':{'name':['Dongle用電量','Device用電量']}
     }
+    for i in range(len(latest_electricity_list)):
+        tempBlogs.append(blogToDictionary(latest_electricity_list[i])) # Converting `QuerySet` to a Python Dictionary
 
+
+    print(json.dumps(tempBlogs))
+    jsondata = dict()
+    weather={
+	    "describe": "晴時多雲", 
+	    "date": "2022-09-04", 
+	    "day": "Mon",         
+	    "temp": 28,           
+	    "humid": 60,          
+	    "wind": 8             
+    }
+    total_electricity={
+        "instant_power_usage": 0000.0, 
+        "contract_capacity": 0000.0,    
+        "today_electricity": 0000.0,    
+        "year_electricity": 0000.0,    
+    }
+    jsondata["weather"]=weather
+    jsondata["total_electricity"]=weather
+    print(json.dumps(jsondata))
 
     return render(request, 'ElectricList.html', context)
+
+def blogToDictionary(blog):
+    """
+    A utility function to convert object of type Blog to a Python Dictionary
+    """
+    output = {}
+    output["UUID"] = blog.UUID
+    output["KwH"] = blog.KwH
+
+    return output
 

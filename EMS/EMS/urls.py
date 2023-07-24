@@ -19,5 +19,5 @@ from Accounts import views
 
 urlpatterns = [
     path('login', views.login_api.as_view(), name='login'),
-    # path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls),
 ]

@@ -11,16 +11,17 @@ class login_api(View):
     def post(self, request, *args, **kwargs):
         __account = request.POST.get('account')
         __password = request.POST.get('password')
+        print(__account, __password)
         user = auth.authenticate(username=__account, password=__password)
         if user is not None and user.is_active:
             token, _ = Token.objects.get_or_create(user=user)
-            return JsonResponse({"sign_in_resp": "pass", 'token': token.key}, status=200)
+            return JsonResponse({"log_in_resp": "pass", 'token': token.key}, status=200)
         else:
             if(self.check_account_exist(__account)==False):
                 #return Response({"sign_in_resp": "account fail", "account":__account})
-                return JsonResponse({"sign_in_resp": "account fail"}, status=401)
+                return JsonResponse({"log_in_resp": "account fail"}, status=401)
             #return Response({"sign_in_resp": "password fail"})
-            return JsonResponse({"sign_in_resp": "password fail"}, status=401)
+            return JsonResponse({"log_in_resp": "password fail"}, status=401)
 
     def check_account_exist(self, __account):
         """

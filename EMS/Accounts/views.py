@@ -4,6 +4,7 @@ from django.contrib import auth
 from django.http import JsonResponse
 from django.contrib.auth import get_user_model
 from rest_framework.authtoken.models import Token
+from models import Stuff
 
 
 # Create your views here.
@@ -35,4 +36,46 @@ class login_api(View):
             return True
         except:
             return False
+        
+class stuff_op_api(View):
+
+    def get(self, request, *args, **kwargs):
+        name = request.GET.get('name', None)
+        id = request.GET.get('id', None)
+
+        if name:
+            # 根據姓名進行查詢
+            stuff_queryset = Stuff.objects.filter(name=name)
+        elif id:
+            # 根據ID進行查詢
+            stuff_queryset = Stuff.objects.filter(id=id)
+        else:
+            # 若沒有提供name或id參數，回傳全部資料
+            stuff_queryset = Stuff.objects.all()
+
+        # 檢查是否有符合條件的資料
+        if not stuff_queryset.exists():
+            return JsonResponse({'error': 'Stuff not found.'}, status=404)
+
+        # 將QuerySet轉換成JSON格式
+        data = []
+        for stuff in stuff_queryset:
+            data.append({
+                'id': stuff.id,
+                'name': stuff.name,
+                'account': stuff.account,
+                'title': stuff.title,
+                'unit': stuff.unit,
+                'email': stuff.email,
+                'permission': stuff.permission,
+                'activation': stuff.activation
+            })
+
+        return JsonResponse(data, safe=False)
+
+    def post(self, request, *args, **kwargs):
+        pass
+
+    def delete(self, request, *args, **kwargs):
+        pass
     
